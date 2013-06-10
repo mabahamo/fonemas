@@ -6,6 +6,7 @@ describe Fonemas do
     Fonemas.fonemas('torta')[0].should eql("t oo r t a")
     Fonemas.fonemas('ungüento')[0].should eql("u n g u ee n t o")
     Fonemas.fonemas('abuela').should include('a g u ee l a')
+    Fonemas.fonemas('aro').should include('aa r o')
 
     for i in Fonemas.fonemas('adskribir')
       i.should end_with('ii r')

@@ -42,9 +42,14 @@ module Fonemas
         #acento ya existe en otra silaba
         return false
       else
+        #puts es.visualize(w)
         if hh.size == 1
+          if lastVocal(w,w.size-1) == word[i]
+            return true
+          else
+            return false
+          end
           #monosilabos
-          return true
         elsif hh.size == 2
             #agudas, se acentuan en n,s o vocal
             if w =~ /[nsaeiou]$/
