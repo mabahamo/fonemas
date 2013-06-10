@@ -16,6 +16,17 @@ module Fonemas
     return s
   end
 
+  def self.lastVocal(word,from)
+    for i in 1..from
+      #puts i
+      #puts word[from-i]
+      if word[from-i] =~ /[aeiou]/
+        return word[from-i]
+      end
+    end
+    return false
+  end
+
   def self.isTonica(word,i)
     #falta considerar las palabras que poseen acento pero no tilde
     tildes = %w(á é í ó ú)
@@ -25,6 +36,7 @@ module Fonemas
     else
       es = Text::Hyphen.new(:language => "es", :left => 0, :right => 1)
       p = es.hyphenate(w)
+      #puts es.visualize(w)
       hh = es.visualize(w).split("-")
       if word =~ /áéíóú/
         #acento ya existe en otra silaba
@@ -38,20 +50,22 @@ module Fonemas
             if w =~ /[nsaeiou]$/
               #termina en n s y vocal y no tiene tilde
               #por lo tanto es grave
-              if i < p[0]
+            #  puts "#{lastVocal(w,p[0])} == #{word[i]} #{word[i].class.name}"
+              if i < p[0] and lastVocal(w,p[0]) == word[i]
                 return true
               else
                 return false
               end
             end
         elsif hh.size >= 3
+          #puts hh.join("-")
           if i > p[p.size-1]
             if w =~ /[nsaeiou]$/
               return false
             else
               return true
             end
-          elsif i > p[p.size-2] and w =~ /[nsaeiou]$/
+          elsif i > p[p.size-2] and i <= p[p.size-1] and w =~ /[nsaeiou]$/
             return true
           else
             return false
