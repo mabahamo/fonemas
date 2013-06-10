@@ -17,8 +17,9 @@ module Fonemas
   end
 
   def self.lastVocal(word,from)
+    #puts "last vocal for #{word} from #{from}"
     for i in 1..from
-      #puts i
+     # puts i
       #puts word[from-i]
       if word[from-i] =~ /[aeiou]/
         return word[from-i]
@@ -53,21 +54,21 @@ module Fonemas
           #monosilabos
         elsif hh.size == 2
             #agudas, se acentuan en n,s o vocal
+            #puts "#{word[i]} #{i}<#{p[0]} - #{lastVocal(w,p[0])}"
             if w =~ /[nsaeiou]$/
               #termina en n s y vocal y no tiene tilde
               #por lo tanto es grave
             #  puts "#{lastVocal(w,p[0])} == #{word[i]} #{word[i].class.name}"
-            #  puts "#{i < p[0]} - #{lastVocal(w,p[0]) == word[i]}"
               if i < p[0] and lastVocal(w,p[0]) == word[i]
                 return true
               else
                 return false
               end
             else
-              if i < p[0] and lastVocal(w,p[0]) == word[i]
+              if i < p[0]
                 return false
               else
-                return true
+                return lastVocal(w,w.size) == word[i]
               end
             end
         elsif hh.size >= 3

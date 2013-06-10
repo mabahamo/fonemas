@@ -9,6 +9,7 @@ describe Fonemas do
     Fonemas.fonemas('aro').should include('aa r o')
     Fonemas.fonemas('bondad').should include('b o n D aa d')
     Fonemas.fonemas('gestión').should include('j e s t i oo n')
+    Fonemas.fonemas('abstraer').should include('a B s t r a ee r')
 
     for i in Fonemas.fonemas('adskribir')
       i.should end_with('ii r')
