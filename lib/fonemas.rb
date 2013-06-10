@@ -1,3 +1,4 @@
+# coding: utf-8
 require "fonemas/version"
 
 module Fonemas
