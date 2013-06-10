@@ -30,7 +30,7 @@ module Fonemas
   end
 
   def self.entreVocales(word,i)
-    if i == 0 || word.size - 1 == i
+    if i == 0 or word.size - 1 == i
       return false
     else
       return (isVocal(word,i-1) and isVocal(word,i+1))
@@ -129,7 +129,7 @@ module Fonemas
             fonema << ['ch','sh','tch']
           end
         when 'd' then
-          if entreVocales(word,i) || i == word.size-1
+          if entreVocales(word,i) or i == word.size-1
             fonema << ['d','']
           elsif entreVocalyConsonante(word,i)
             fonema << ['D','d']
@@ -214,7 +214,7 @@ module Fonemas
           if word[i-1] == 'q' or word[i-1] == 'g'
             #nada
           else
-            if word[i-1] == 'g' || i == 0
+            if word[i-1] == 'g' or i == 0
               fonema << 'gu'
             elsif isTonica(word,i)
               fonema << 'uu'
