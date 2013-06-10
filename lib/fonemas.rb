@@ -39,7 +39,7 @@ module Fonemas
       #puts es.visualize(w)
       hh = es.visualize(w).split("-")
       #puts hh.size
-      if word =~ /áéíóú/
+      if w =~ /[áéíóú]/
         #acento ya existe en otra silaba
         return false
       else
@@ -287,6 +287,7 @@ module Fonemas
             fonema << ['gu','']
           elsif word[i-1] == 'q' or word[i-1] == 'g'
             #nada
+
           elsif isTonica(word,i)
               fonema << 'uu'
           else
