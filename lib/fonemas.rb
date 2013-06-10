@@ -38,6 +38,7 @@ module Fonemas
       p = es.hyphenate(w)
       #puts es.visualize(w)
       hh = es.visualize(w).split("-")
+      #puts hh.size
       if word =~ /áéíóú/
         #acento ya existe en otra silaba
         return false
@@ -56,10 +57,17 @@ module Fonemas
               #termina en n s y vocal y no tiene tilde
               #por lo tanto es grave
             #  puts "#{lastVocal(w,p[0])} == #{word[i]} #{word[i].class.name}"
+            #  puts "#{i < p[0]} - #{lastVocal(w,p[0]) == word[i]}"
               if i < p[0] and lastVocal(w,p[0]) == word[i]
                 return true
               else
                 return false
+              end
+            else
+              if i < p[0] and lastVocal(w,p[0]) == word[i]
+                return false
+              else
+                return true
               end
             end
         elsif hh.size >= 3
