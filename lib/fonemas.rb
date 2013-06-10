@@ -214,7 +214,7 @@ module Fonemas
           if word[i-1] == 'q' or word[i-1] == 'g'
             #nada
           else
-            if word[i-1] == 'g' or i == 0
+            if word[i-1] == 'g' and i == 1
               fonema << 'gu'
             elsif isTonica(word,i)
               fonema << 'uu'
