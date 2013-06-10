@@ -2,6 +2,11 @@
 require "fonemas/version"
 
 module Fonemas
+
+  def self.version
+    VERSION
+  end
+
   def self.clean(text)
     s = text.gsub(/,/,' ')
     s = s.gsub(/\s+/,' ')
