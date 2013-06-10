@@ -2,6 +2,7 @@
 require "fonemas/version"
 
 module Fonemas
+  require 'text/hyphen'
 
   def self.version
     VERSION
@@ -18,9 +19,48 @@ module Fonemas
   def self.isTonica(word,i)
     #falta considerar las palabras que poseen acento pero no tilde
     tildes = %w(á é í ó ú)
+    w = word.join
     if tildes.include? word[i]
       return true
     else
+      es = Text::Hyphen.new(:language => "es", :left => 0, :right => 1)
+      p = es.hyphenate(w)
+      hh = es.visualize(w).split("-")
+      if word =~ /áéíóú/
+        #acento ya existe en otra silaba
+        return false
+      else
+        if hh.size == 1
+          #monosilabos
+          return true
+        elsif hh.size == 2
+            #agudas, se acentuan en n,s o vocal
+            if w =~ /[nsaeiou]$/
+              #termina en n s y vocal y no tiene tilde
+              #por lo tanto es grave
+              if i < p[0]
+                return true
+              else
+                return false
+              end
+            end
+        elsif hh.size >= 3
+          if i > p[p.size-1]
+            if w =~ /[nsaeiou]$/
+              return false
+            else
+              return true
+            end
+          elsif i > p[p.size-2] and w =~ /[nsaeiou]$/
+            return true
+          else
+            return false
+          end
+        end
+      end
+
+
+
       return false
     end
   end
@@ -153,7 +193,7 @@ module Fonemas
           if word[i+1] == 'e' or word[i+1] == 'i'
             fonema << 'j'
           else
-            if !entreVocales(word,i)
+            if !entreVocales(word,i) and word[i-1] != 'n'
               fonema << 'G'
             else
               fonema << 'g'
