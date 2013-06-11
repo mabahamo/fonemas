@@ -330,43 +330,51 @@ module Fonemas
 
 
     end
-
-    return generateFonemas(fonema)
+    #puts "pre: #{fonema}"
+    t =  normalize(generateFonemas(fonema))
+    #puts "out: #{t}"
+    return t
   end
 
-  def self.generateFonemas(fonema)
-    salidas = 1
-    for i in fonema
-      if i.class.name == 'Array'
-        salidas *= i.size
+  def self.generateFonemas(fonema,i=0,current=[])
+      if i == fonema.length
+        return current.join(' ')
       end
-    end
-    #puts "salidas: #{salidas}"
 
-    outputs = []
-    for j in 1..salidas
-      outputs[j-1] = []
-    end
-    for i in 0..(fonema.size-1)
       c = fonema[i]
       if c.class.name == 'Array'
-        for j in 1..salidas
-          t = c[(j-1)%c.size]
-          outputs[j-1] += [t] unless t.size == 0
+        output = []
+        for j in c
+          output << generateFonemas(fonema,i+1,current + [j])
         end
+        return output
       else
-        for j in 1..salidas
-          outputs[j-1] += [c]
-        end
+        return generateFonemas(fonema,i+1,current + [c])
       end
 
-    end
-
-    salida = []
-    for i in outputs
-      salida << i.join(" ")
-    end
-
-    return salida
   end
+
+
+  def self.normalize(t)
+    @output = []
+    anormalize(t)
+    return @output
+  end
+
+  def self.anormalize(t)
+    #puts "pre normalize: #{t}"
+    if t.class.name == 'Array'
+      for i in t
+        anormalize(i)
+      end
+    else
+      #puts "found #{t}"
+      @output << t
+    end
+
+  end
+
+
+
+
 end

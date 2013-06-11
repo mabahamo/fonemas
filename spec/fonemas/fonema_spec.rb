@@ -16,4 +16,15 @@ describe Fonemas do
     end
   end
 
+  it 'combinar fonemas' do
+    test = ['a',['b','c'],['d','e']]
+    output = Fonemas.normalize(Fonemas.generateFonemas(test))
+    output.should include('a b d')
+    output.should include('a b e')
+    output.should include('a c d')
+    output.should include('a c e')
+
+
+  end
+
 end
