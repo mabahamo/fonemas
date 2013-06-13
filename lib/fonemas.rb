@@ -345,11 +345,19 @@ module Fonemas
       if c.class.name == 'Array'
         output = []
         for j in c
-          output << generateFonemas(fonema,i+1,current + [j])
+          if j == ''
+            output << generateFonemas(fonema,i+1,current)
+          else
+            output << generateFonemas(fonema,i+1,current + [j])
+          end
         end
         return output
       else
-        return generateFonemas(fonema,i+1,current + [c])
+        if c == ''
+          return generateFonemas(fonema,i+1,current)
+        else
+          return generateFonemas(fonema,i+1,current + [c])
+        end
       end
 
   end
