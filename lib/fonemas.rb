@@ -125,7 +125,7 @@ module Fonemas
     s = word[second]
     abiertas = %w(a e o)
     cerradas = %w(i u)
-    return ((abiertas.include? f and cerradas.include? s) or (abiertas.include? s and cerradas.include? f))
+    return ((abiertas.include? f and cerradas.include? s) or (abiertas.include? s and cerradas.include? f) or (cerradas.include? f and cerradas.include? s))
 
   end
 
@@ -173,7 +173,7 @@ module Fonemas
           else
             fonema << 'a'
           end
-        when 'b' then
+        when 'b','v' then
           if word[i+1] == 'u' and isDiptongo(word,i+1,i+2)
             if entreVocales(word,i)
               fonema << ['b','g','']
@@ -218,7 +218,10 @@ module Fonemas
         when 'f' then
           fonema << 'f'
         when 'g' then
-          if word[i+1] == 'e' or word[i+1] == 'i'
+          if word[i+1] == 'u' and i == 0
+            #nada
+
+          elsif word[i+1] == 'e' or word[i+1] == 'i'
             fonema << 'j'
           else
             if !entreVocales(word,i) and word[i-1] != 'n'
@@ -228,6 +231,9 @@ module Fonemas
             end
           end
         when 'h' then
+          if word[i+1] == 'u' and isDiptongo(word,i+1,i+2)
+            fonema << ['','g']
+          end
           #nada
         when 'i' then
           if isTonica(word,i)
@@ -294,8 +300,6 @@ module Fonemas
           else
               fonema << 'u'
           end
-        when 'v' then
-          fonema << 'b'
         when 'w' then
           if i == 0
             fonema << ['b','B']

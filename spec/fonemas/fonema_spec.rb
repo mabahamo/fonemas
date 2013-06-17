@@ -11,10 +11,24 @@ describe Fonemas do
     Fonemas.fonemas('gestión').should include('j e s t i oo n')
     Fonemas.fonemas('abstraer').should include('a B s t r a ee r')
     Fonemas.fonemas('presidida').should include('p r e s i ii d a')
+    Fonemas.fonemas('guerra').should include('gu ee R a')
+    Fonemas.fonemas('buitre').should include('g u ii t r e')
+    Fonemas.fonemas('huaso').should include('g u aa s o')
+    Fonemas.fonemas('huevo').should include('g u ee b o')
+    Fonemas.fonemas('huevo').should include('g u ee o')
+    Fonemas.fonemas('huifa').should include('g u ii f a')
+
+
+
+
 
     for i in Fonemas.fonemas('adskribir')
       i.should end_with('ii r')
     end
+  end
+
+  it 'test diptongos' do
+    Fonemas.isDiptongo("buitre",1,2).should be(true)
   end
 
   it 'combinar fonemas' do
