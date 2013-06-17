@@ -1,0 +1,33 @@
+#!/usr/bin/env ruby
+
+$LOAD_PATH.unshift File.expand_path(File.dirname(__FILE__) + '/../lib')
+
+require 'fonemas'
+
+ARGF.set_encoding('UTF-8')
+
+input = ARGF.readlines
+
+words = []
+
+for i in input
+    #1 palabra por linea
+	words << i.split(" ")[0].chomp.downcase
+end
+
+words = words.sort
+words = words.uniq
+
+
+for i in words
+  fonemas = Fonemas.fonemas(i)
+  count = 0
+  for f in fonemas
+    if count > 0
+      puts "#{i}(#{count})\t#{f}"
+    else
+      puts "#{i}\t#{f}"
+    end
+    count += 1
+  end
+end
