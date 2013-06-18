@@ -18,7 +18,10 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+    require 'fonemas'
+    fonemas = Fonemas.fonemas('abuela')
+    puts fonemas.join('\n')
+
 
 ## Contributing
 
