@@ -2,9 +2,9 @@
 require 'spec_helper'
 describe Fonemas do
   it 'test acentos' do
-    Fonemas.fonemas('hasta')[0].should eql("aa s t a")
-    Fonemas.fonemas('torta')[0].should eql("t oo r t a")
-    Fonemas.fonemas('ungüento')[0].should eql("u n g u ee n t o")
+    Fonemas.fonemas('hasta').should include("aa s t a")
+    Fonemas.fonemas('torta').should include("t oo r t a")
+    Fonemas.fonemas('ungüento').should include("u n g u ee n t o")
     Fonemas.fonemas('abuela').should include('a g u ee l a')
     Fonemas.fonemas('aro').should include('aa r o')
     Fonemas.fonemas('bondad').should include('b o n D aa d')
@@ -17,6 +17,14 @@ describe Fonemas do
     Fonemas.fonemas('huevo').should include('g u ee b o')
     Fonemas.fonemas('huevo').should include('g u ee o')
     Fonemas.fonemas('huifa').should include('g u ii f a')
+    Fonemas.fonemas('diente').should include('d i ee n t e')
+    Fonemas.fonemas('diente').should include('D i ee n t e')
+    Fonemas.fonemas('bueno').should include('b u ee n o')
+    Fonemas.fonemas('bueno').should include('B u ee n o')
+    Fonemas.fonemas('obvio').should include('oo B b i o')
+    Fonemas.fonemas('obvio').should include('oo b i o')
+    Fonemas.fonemas('guerra').should_not include('ee R a')
+
 
 
 

@@ -174,7 +174,15 @@ module Fonemas
             fonema << 'a'
           end
         when 'b','v' then
-          if word[i+1] == 'u' and isDiptongo(word,i+1,i+2)
+          if isVocal(word,i-1) and (word[i+1] == 'b' or word[i+1] == 'v')
+            fonema << ['B','']
+          elsif i == 0 and isVocal(word,i+1)
+            if word[i+1] == 'u' and isDiptongo(word,i+1,i+2)
+              fonema << ['B','b','g']
+            else
+              fonema << ['B','b']
+            end
+          elsif word[i+1] == 'u' and isDiptongo(word,i+1,i+2)
             if entreVocales(word,i)
               fonema << ['b','g','']
             else
@@ -202,7 +210,9 @@ module Fonemas
             fonema << ['ch','sh','tch']
           end
         when 'd' then
-          if entreVocales(word,i) or i == word.size-1
+          if i == 0 and isVocal(word,i+1)
+            fonema << ['D','d']
+          elsif entreVocales(word,i) or i == word.size-1
             fonema << ['d','']
           elsif entreVocalyConsonante(word,i)
             fonema << ['D','d']
@@ -291,7 +301,7 @@ module Fonemas
           fonema << 'u'
         when 'u' then
           if word[i-1] == 'g' and i == 1 and isTonica(word,i+1)
-            fonema << ['gu','']
+            fonema << ['gu']
           elsif word[i-1] == 'q' or word[i-1] == 'g'
             #nada
 
