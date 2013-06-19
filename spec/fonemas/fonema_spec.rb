@@ -36,7 +36,7 @@ describe Fonemas do
   end
 
   it 'lista fonemas utilizados' do
-    words = %w{hasta ungüento huifa obvio guerra chile sexo}
+    words = %w{hasta ungüento huifa obvio guerra chile sexo mañana}
     for w in words
       fs = Fonemas.fonemas(w)
       for pronunciacion in fs
