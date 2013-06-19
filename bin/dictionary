@@ -4,8 +4,9 @@ $LOAD_PATH.unshift File.expand_path(File.dirname(__FILE__) + '/../lib')
 
 require 'fonemas'
 
-if ARGV.include('--lista')
+if ARGV.include?('--lista')
    puts Fonemas.lista_de_fonemas.join("\n")
+   exit
 end
 
 ARGF.set_encoding('UTF-8')
