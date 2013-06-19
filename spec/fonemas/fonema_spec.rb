@@ -47,6 +47,7 @@ describe Fonemas do
       end
     end
 
+
   end
 
   it 'test diptongos' do

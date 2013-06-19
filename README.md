@@ -22,6 +22,13 @@ Or install it yourself as:
     fonemas = Fonemas.fonemas('abuela')
     puts fonemas.join('\n')
 
+Also you can use it from the command line:
+
+    fonemas archivo.txt
+
+or print the phonem list:
+
+    fonemas --list
 
 ## Contributing
 
