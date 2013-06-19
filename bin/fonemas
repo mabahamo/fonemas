@@ -22,7 +22,7 @@ words = []
 
 for i in input
     #1 palabra por linea
-	words << i.split(" ")[0].chomp.downcase
+	words << Fonemas.downcase(i.split(" ")[0].chomp)
 end
 
 words = words.sort
