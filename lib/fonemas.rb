@@ -215,7 +215,10 @@ module Fonemas
             fonema << ['ch','sh','tch']
           end
         when 'd' then
-          if i == 0 and isVocal(word,i+1)
+          if word.size == 1
+            fonema << 'd'
+            fonema << 'e'
+          elsif i == 0 and isVocal(word,i+1)
             fonema << ['D','d']
           elsif entreVocales(word,i) or i == word.size-1
             fonema << ['d','']

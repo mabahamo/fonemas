@@ -24,6 +24,8 @@ describe Fonemas do
     Fonemas.fonemas('obvio').should include('oo B b i o')
     Fonemas.fonemas('obvio').should include('oo b i o')
     Fonemas.fonemas('guerra').should_not include('ee R a')
+    Fonemas.fonemas('d').should_not include('')
+    Fonemas.fonemas('d').should include('d e')
 
 
 
