@@ -3,6 +3,7 @@ require "fonemas/version"
 
 module Fonemas
   require 'text/hyphen'
+  require 'unicode_utils'
 
   def self.version
     VERSION
@@ -12,8 +13,12 @@ module Fonemas
     s = text.gsub(/,/,' ')
     s = s.gsub(/\s+/,' ')
     s = s.chomp.strip
-    s = s.downcase
+    s = downcase(s)
     return s
+  end
+  
+  def self.downcase(text)
+    UnicodeUtils.downcase(text)
   end
 
   def self.lastVocal(word,from)
@@ -130,7 +135,7 @@ module Fonemas
   end
 
   def self.separar(word)
-    word = word.downcase
+    word = downcase(word)
     output = []
     i = 0
     while(i < word.length)
@@ -347,8 +352,21 @@ module Fonemas
     #puts "pre: #{fonema}"
     t =  normalize(generateFonemas(fonema))
     #puts "out: #{t}"
+
+    #self.checkFonemas(t)
+
     return t
   end
+
+  #def self.checkFonemas(p)
+  #  #un ultimo chequeo de seguridad
+  #  for pronunciacion in p
+  #    for fonema in pronunciacion.split(" ")
+  #      raise "fonema invalido" unless lista_de_fonemas.include? fonema
+  #    end
+  #  end
+  #
+  #end
 
   def self.generateFonemas(fonema,i=0,current=[])
       if i == fonema.length

@@ -49,6 +49,10 @@ describe Fonemas do
 
 
   end
+  
+  it 'soporta mayúsculas acentuadas' do
+    Fonemas.fonemas('África').should include('aa f r i k a')
+  end
 
   it 'test diptongos' do
     Fonemas.isDiptongo("buitre",1,2).should be(true)

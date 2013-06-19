@@ -9,6 +9,11 @@ if ARGV.include?('--list')
    exit
 end
 
+if ARGV.include?('--version')
+  puts Fonemas.version
+  exit
+end
+
 ARGF.set_encoding('UTF-8')
 
 input = ARGF.readlines
