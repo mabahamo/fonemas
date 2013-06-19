@@ -396,7 +396,12 @@ module Fonemas
 
   end
 
+  def self.lista_de_fonemas
+    phonelist = ['SIL']
+    phonelist = %w{a e i o u aa ee ii oo uu}
+    phonelist += %w{B b d e f g h i j k l m n o p q R r s t u w ks k h Gu gu ch tch sh}
 
+  end
 
 
 end

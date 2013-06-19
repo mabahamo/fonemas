@@ -35,6 +35,20 @@ describe Fonemas do
     end
   end
 
+  it 'lista fonemas utilizados' do
+    words = %w{hasta ungüento huifa obvio guerra chile sexo}
+    for w in words
+      fs = Fonemas.fonemas(w)
+      for pronunciacion in fs
+        p = pronunciacion.split(' ')
+        for fonema in p
+          Fonemas.lista_de_fonemas.should include(fonema)
+        end
+      end
+    end
+
+  end
+
   it 'test diptongos' do
     Fonemas.isDiptongo("buitre",1,2).should be(true)
   end
