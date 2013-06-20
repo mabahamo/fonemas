@@ -157,7 +157,43 @@ module Fonemas
     return output
   end
 
+  def self.fonemaLetra(letra)
+    case letra
+      when 'a' then ['aa']
+      when 'b' then ['b ee']
+      when 'c' then ['s ee']
+      when 'd' then ['d ee']
+      when 'e' then ['ee']
+      when 'f' then ['ee f ee']
+      when 'g' then ['g ee']
+      when 'h' then ['aa ch e']
+      when 'i' then ['ii']
+      when 'j' then ['j oo t a']
+      when 'k' then ['k aa']
+      when 'l' then ['ee l e']
+      when 'm' then ['ee m e']
+      when 'n' then ['ee n e']
+      when 'ñ' then ['ee nh e']
+      when 'o' then ['oo']
+      when 'p' then ['p ee']
+      when 'q' then ['c uu']
+      when 'r' then ['ee rr ee','ee r ee']
+      when 's' then ['ee s e']
+      when 't' then ['t ee']
+      when 'u' then ['uu']
+      when 'v' then ['b ee','uu b e']
+      when 'w' then ['d o b l e b ee','d o b l e uu v e']
+      when 'x' then ['ee k i s']
+      when 'y' then ['ll ee']
+      when 'z' then ['z ee t a']
+    end
+  end
+
+
   def self.fonemas(word)
+    if word.size == 1
+      return fonemaLetra(word)
+    end
     if word.include?('_')
       output = []
       for a in word.split('_')
@@ -190,8 +226,7 @@ module Fonemas
           end
         when 'b','v' then
           if word.size() == 1
-            fonema << 'bb'
-            fonema << 'ee'
+            return Fonemas.fonemas('be')
           elsif isVocal(word,i-1) and (word[i+1] == 'b' or word[i+1] == 'v')
             fonema << ['bb','']
           elsif i == 0 and isVocal(word,i+1)
@@ -265,7 +300,9 @@ module Fonemas
             end
           end
         when 'h' then
-          if word[i+1] == 'u' and isDiptongo(word,i+1,i+2)
+          if word.size == 1
+            return Fonemas.fonemas('hache')
+          elsif word[i+1] == 'u' and isDiptongo(word,i+1,i+2)
             fonema << ['','g']
           end
           #nada

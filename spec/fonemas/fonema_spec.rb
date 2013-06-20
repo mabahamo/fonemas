@@ -25,7 +25,6 @@ describe Fonemas do
     Fonemas.fonemas('obvio').should include('oo b i o')
     Fonemas.fonemas('guerra').should_not include('ee rr a')
     Fonemas.fonemas('d').should_not include('')
-    Fonemas.fonemas('d').should include('d e')
 
 
 
@@ -58,8 +57,42 @@ describe Fonemas do
 
   it 'palabras deletreadas' do
     Fonemas.fonemas('_a_b_c').should be_a_kind_of(Array)
-    Fonemas.fonemas('_a_b_c').should include('aa bb ee s ee')
+    Fonemas.fonemas('_a_b_c').should include('aa b ee s ee')
     Fonemas.fonemas('_a').should include('aa')
+  end
+
+  it 'letras' do
+    Fonemas.fonemas('h').should include('aa ch e')
+    Fonemas.fonemas('a').should include('aa')
+    Fonemas.fonemas('b').should include('b ee')
+    Fonemas.fonemas('c').should include('s ee')
+    Fonemas.fonemas('d').should include('d ee')
+    Fonemas.fonemas('e').should include('ee')
+    Fonemas.fonemas('f').should include('ee f ee')
+    Fonemas.fonemas('g').should include('g ee')
+    Fonemas.fonemas('h').should include('aa ch e')
+    Fonemas.fonemas('i').should include('ii')
+    Fonemas.fonemas('j').should include('j oo t a')
+    Fonemas.fonemas('k').should include('k aa')
+    Fonemas.fonemas('l').should include('ee l e')
+    Fonemas.fonemas('m').should include('ee m e')
+    Fonemas.fonemas('n').should include('ee n e')
+    Fonemas.fonemas('ñ').should include('ee nh e')
+    Fonemas.fonemas('o').should include('oo')
+    Fonemas.fonemas('p').should include('p ee')
+    Fonemas.fonemas('q').should include('c uu')
+    Fonemas.fonemas('r').should include('ee rr ee')
+    Fonemas.fonemas('r').should include('ee r ee')
+    Fonemas.fonemas('s').should include('ee s e')
+    Fonemas.fonemas('t').should include('t ee')
+    Fonemas.fonemas('u').should include('uu')
+    Fonemas.fonemas('v').should include('b ee')
+    Fonemas.fonemas('v').should include('uu b e')
+    Fonemas.fonemas('w').should include('d o b l e b ee')
+    Fonemas.fonemas('w').should include('d o b l e uu v e')
+    Fonemas.fonemas('x').should include('ee k i s')
+    Fonemas.fonemas('y').should include('ll ee')
+    Fonemas.fonemas('z').should include('z ee t a')
   end
 
   it 'test diptongos' do
