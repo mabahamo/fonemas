@@ -26,12 +26,8 @@ describe Fonemas do
     Fonemas.fonemas('guerra').should_not include('ee rr a')
     Fonemas.fonemas('d').should_not include('')
     Fonemas.fonemas('dé').should include('d ee')
-
-
-
-
-
-
+    Fonemas.fonemas('guatón').should include('g u a t oo n')
+    Fonemas.fonemas('gu').should include('g u')
     for i in Fonemas.fonemas('adskribir')
       i.should end_with('ii r')
     end

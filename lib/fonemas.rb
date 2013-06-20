@@ -353,11 +353,12 @@ module Fonemas
         when 'ü' then
           fonema << 'u'
         when 'u' then
-          if word[i-1] == 'g' and i == 1 and isTonica(word,i+1)
-            fonema << ['gu']
-          elsif word[i-1] == 'q' or word[i-1] == 'g'
-            #nada
-
+          if word[i-1] == 'g' and i == 1
+            if isTonica(word,i+1)
+              fonema << ['gu']
+            else
+              fonema += [['g',''],'u']
+            end
           elsif isTonica(word,i)
               fonema << 'uu'
           else

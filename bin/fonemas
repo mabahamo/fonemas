@@ -9,6 +9,11 @@ if ARGV.include?('--list')
    exit
 end
 
+if ARGV.include?('--word')
+  puts Fonemas.fonemas(ARGV[1])
+  exit
+end
+
 if ARGV.include?('--version')
   puts Fonemas.version
   exit
