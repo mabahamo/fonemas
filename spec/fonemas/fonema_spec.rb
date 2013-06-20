@@ -27,7 +27,8 @@ describe Fonemas do
     Fonemas.fonemas('d').should_not include('')
     Fonemas.fonemas('dé').should include('d ee')
     Fonemas.fonemas('guatón').should include('g u a t oo n')
-    Fonemas.fonemas('gu').should include('g u')
+    Fonemas.fonemas('gu').should include('gg u')
+    Fonemas.fonemas('guagua').should include('gu aa g u a')
     for i in Fonemas.fonemas('adskribir')
       i.should end_with('ii r')
     end

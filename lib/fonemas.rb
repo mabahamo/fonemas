@@ -193,6 +193,7 @@ module Fonemas
 
 
   def self.fonemas(word)
+    word = word.gsub(/'/,'')
     if word.size == 1
       return fonemaLetra(word)
     end
@@ -281,7 +282,7 @@ module Fonemas
         when 'f' then
           fonema << 'f'
         when 'g' then
-          if word[i+1] == 'u' and i == 0
+          if word[i+1] == 'u' and i == 0 and isTonica(word,i+2)
             #nada
 
           elsif word[i+1] == 'e' or word[i+1] == 'i'
@@ -353,12 +354,8 @@ module Fonemas
         when 'ü' then
           fonema << 'u'
         when 'u' then
-          if word[i-1] == 'g' and i == 1
-            if isTonica(word,i+1)
+          if word[i-1] == 'g' and i == 1 and isTonica(word,i+1)
               fonema << ['gu']
-            else
-              fonema += [['g',''],'u']
-            end
           elsif isTonica(word,i)
               fonema << 'uu'
           else
