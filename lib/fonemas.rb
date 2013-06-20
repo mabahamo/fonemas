@@ -180,18 +180,18 @@ module Fonemas
           end
         when 'b','v' then
           if isVocal(word,i-1) and (word[i+1] == 'b' or word[i+1] == 'v')
-            fonema << ['B','']
+            fonema << ['bb','']
           elsif i == 0 and isVocal(word,i+1)
             if word[i+1] == 'u' and isDiptongo(word,i+1,i+2)
-              fonema << ['B','b','g']
+              fonema << ['bb','b','g']
             else
-              fonema << ['B','b']
+              fonema << ['bb','b']
             end
           elsif word[i+1] == 'u' and isDiptongo(word,i+1,i+2)
             if entreVocales(word,i)
               fonema << ['b','g','']
             else
-              fonema << ['B','g']
+              fonema << ['bb','g']
             end
           elsif isFricativa(word,i-1)
             fonema << 'b'
@@ -200,7 +200,7 @@ module Fonemas
           elsif entreVocales(word,i)
             fonema << ['b','']
           else
-            fonema << 'B'
+            fonema << 'bb'
           end
         when 'c' then
           if word[i+1] == 'e' or word[i+1] == 'i'
@@ -219,11 +219,11 @@ module Fonemas
             fonema << 'd'
             fonema << 'e'
           elsif i == 0 and isVocal(word,i+1)
-            fonema << ['D','d']
+            fonema << ['dd','d']
           elsif entreVocales(word,i) or i == word.size-1
             fonema << ['d','']
           elsif entreVocalyConsonante(word,i)
-            fonema << ['D','d']
+            fonema << ['dd','d']
           else
             fonema << 'd'
           end
@@ -243,7 +243,7 @@ module Fonemas
             fonema << 'j'
           else
             if !entreVocales(word,i) and word[i-1] != 'n'
-              fonema << 'G'
+              fonema << 'gg'
             else
               fonema << 'g'
             end
@@ -285,12 +285,12 @@ module Fonemas
           fonema << 'k'
         when 'r' then
           if i == 0
-            fonema << 'R'
+            fonema << 'rr'
           else
             fonema << 'r'
           end
         when 'rr' then
-          fonema << 'R'
+          fonema << 'rr'
         when 's' then
           if word[i-1] == 'r' or word[i-1] == 'd' or i == word.size-1
             fonema << ['s','','h']
@@ -320,15 +320,15 @@ module Fonemas
           end
         when 'w' then
           if i == 0
-            fonema << ['b','B']
+            fonema << ['b','bb']
           elsif word[i-1] == 'o'
             fonema << 'u'
           elsif word[i+1] == 'i'
             fonema << 'u'
-          elsif entreVocales(word,i)
+          else #if entreVocales(word,i)
             fonema << 'gu'
-          else
-            fonema << 'Gu'
+#          else
+#            fonema << 'Gu'
           end
         when 'x' then
           fonema << ['ks','k','h']
@@ -420,7 +420,7 @@ module Fonemas
   def self.lista_de_fonemas
     phonelist = ['SIL']
     phonelist += %w{a e i o u aa ee ii oo uu}
-    phonelist += %w{B b d e f g h i j k l m n o p q R r s t u w ks k h Gu gu ch tch sh D G ll lli nh}
+    phonelist += %w{bb b d e f g h i j k l m n o p q rr r s t u w ks k h gu ch tch sh dd gg ll lli nh}
     phonelist.uniq
   end
 
