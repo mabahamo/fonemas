@@ -94,6 +94,7 @@ describe Fonemas do
     Fonemas.fonemas('x').should include('ee k i s')
     Fonemas.fonemas('y').should include('ll ee')
     Fonemas.fonemas('z').should include('z ee t a')
+    Fonemas.fonemas('é').should include('ee')
   end
 
   it 'test diptongos' do
