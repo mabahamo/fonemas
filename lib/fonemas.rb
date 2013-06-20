@@ -35,6 +35,7 @@ module Fonemas
 
   def self.isTonica(word,i)
     #falta considerar las palabras que poseen acento pero no tilde
+    return true if word.size == 1
     tildes = %w(á é í ó ú)
     w = word.join
     if tildes.include? word[i]
@@ -157,6 +158,15 @@ module Fonemas
   end
 
   def self.fonemas(word)
+    if word.include?('_')
+      output = []
+      for a in word.split('_')
+        if a.size > 0
+          output << Fonemas.fonemas(a)
+        end
+      end
+      return output.join(' ')
+    end
     word = separar(word)
     fonema = []
     for i in 0..(word.length-1)
@@ -179,7 +189,10 @@ module Fonemas
             fonema << 'a'
           end
         when 'b','v' then
-          if isVocal(word,i-1) and (word[i+1] == 'b' or word[i+1] == 'v')
+          if word.size() == 1
+            fonema << 'bb'
+            fonema << 'ee'
+          elsif isVocal(word,i-1) and (word[i+1] == 'b' or word[i+1] == 'v')
             fonema << ['bb','']
           elsif i == 0 and isVocal(word,i+1)
             if word[i+1] == 'u' and isDiptongo(word,i+1,i+2)
@@ -203,7 +216,10 @@ module Fonemas
             fonema << 'bb'
           end
         when 'c' then
-          if word[i+1] == 'e' or word[i+1] == 'i'
+          if word.size() == 1
+             fonema << 's'
+             fonema << 'ee'
+          elsif word[i+1] == 'e' or word[i+1] == 'i'
             fonema << 's'
           else
             fonema << 'k'

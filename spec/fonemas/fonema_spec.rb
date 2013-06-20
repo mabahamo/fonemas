@@ -56,6 +56,10 @@ describe Fonemas do
     Fonemas.fonemas('África').should include('aa f r i k a')
   end
 
+  it 'palabras deletreadas' do
+    Fonemas.fonemas('_a_b_c').should include('aa bb ee s ee')
+  end
+
   it 'test diptongos' do
     Fonemas.isDiptongo("buitre",1,2).should be(true)
   end
