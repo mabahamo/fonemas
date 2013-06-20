@@ -87,10 +87,10 @@ describe Fonemas do
     Fonemas.fonemas('v').should include('b ee')
     Fonemas.fonemas('v').should include('uu b e')
     Fonemas.fonemas('w').should include('d o b l e b ee')
-    Fonemas.fonemas('w').should include('d o b l e uu v e')
+    Fonemas.fonemas('w').should include('d o b l e uu b e')
     Fonemas.fonemas('x').should include('ee k i s')
     Fonemas.fonemas('y').should include('ll ee')
-    Fonemas.fonemas('z').should include('z ee t a')
+    Fonemas.fonemas('z').should include('s ee t a')
     Fonemas.fonemas('é').should include('ee')
   end
 

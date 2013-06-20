@@ -182,10 +182,10 @@ module Fonemas
       when 't' then ['t ee']
       when 'u','ú' then ['uu']
       when 'v' then ['b ee','uu b e']
-      when 'w' then ['d o b l e b ee','d o b l e uu v e']
+      when 'w' then ['d o b l e b ee','d o b l e uu b e']
       when 'x' then ['ee k i s']
       when 'y' then ['ll ee']
-      when 'z' then ['z ee t a']
+      when 'z' then ['s ee t a']
       else
         [letra]
     end
