@@ -57,7 +57,9 @@ describe Fonemas do
   end
 
   it 'palabras deletreadas' do
+    Fonemas.fonemas('_a_b_c').should be_a_kind_of(Array)
     Fonemas.fonemas('_a_b_c').should include('aa bb ee s ee')
+    Fonemas.fonemas('_a').should include('aa')
   end
 
   it 'test diptongos' do

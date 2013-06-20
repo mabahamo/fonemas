@@ -165,7 +165,7 @@ module Fonemas
           output << Fonemas.fonemas(a)
         end
       end
-      return output.join(' ')
+      return [output.join(" ")]
     end
     word = separar(word)
     fonema = []
