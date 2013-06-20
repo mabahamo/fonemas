@@ -32,12 +32,17 @@ words = words.uniq
 for i in words
   fonemas = Fonemas.fonemas(i)
   count = 0
-  for f in fonemas
-    if count > 0
-      puts "#{i}(#{count})\t#{f}"
-    else
-      puts "#{i}\t#{f}"
+  begin
+    for f in fonemas
+      if count > 0
+        puts "#{i}(#{count})\t#{f}"
+      else
+        puts "#{i}\t#{f}"
+      end
+      count += 1
     end
-    count += 1
+  rescue
+    puts "error al procesar fonemas para #{i}"
+    exit
   end
 end
