@@ -45,6 +45,17 @@ module Fonemas
       p = es.hyphenate(w)
       #puts es.visualize(w)
       hh = es.visualize(w).split("-")
+
+      if hh.size == 1 and w.size > 4 and w.include? 'h' and w[0] != 'h'
+        #caso johan
+        p = w.index('h')
+        if i < p
+          return true
+        else
+          return false
+        end
+      end
+
       #puts hh.size
       if w =~ /[áéíóúãäë]/
         #acento ya existe en otra silaba
@@ -287,6 +298,8 @@ module Fonemas
         when 'h' then
           if word[i+1] == 'u' and isDiptongo(word,i+1,i+2)
             fonema << ['','g']
+          elsif i > 0 and word[i-1] == 'o' and word[i+1] == 'a'
+            fonema << 'j'
           end
           #nada
         when 'i','í' then
@@ -296,7 +309,7 @@ module Fonemas
             fonema << 'i'
           end
         when 'j' then
-          if word[i+1] == 'o' and word[i+2] == 'ã'
+          if i == 0 and word[i+1] == 'o' and (word[i+2] == 'ã' or word[i+2] == 'h')
             fonema << 'll'
           else
             fonema << 'j'

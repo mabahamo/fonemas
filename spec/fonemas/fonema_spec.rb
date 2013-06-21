@@ -93,6 +93,7 @@ describe Fonemas do
     Fonemas.fonemas('z').should include('s ee t a')
     Fonemas.fonemas('é').should include('ee')
     Fonemas.fonemas('joão').should include('ll o aa o')
+    Fonemas.fonemas('johan').should include('ll oo j a n')
   end
 
   it 'test diptongos' do
