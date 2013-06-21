@@ -29,6 +29,9 @@ describe Fonemas do
     Fonemas.fonemas('guatón').should include('g u a t oo n')
     Fonemas.fonemas('gu').should include('gg u')
     Fonemas.fonemas('guagua').should include('gu aa g u a')
+    Fonemas.fonemas('joão').should include('ll o aa o')
+    Fonemas.fonemas('johan').should include('ll oo j a n')
+    Fonemas.fonemas('adquirir').should include('a d k i r ii r')
     for i in Fonemas.fonemas('adskribir')
       i.should end_with('ii r')
     end
@@ -92,8 +95,6 @@ describe Fonemas do
     Fonemas.fonemas('y').should include('ll ee')
     Fonemas.fonemas('z').should include('s ee t a')
     Fonemas.fonemas('é').should include('ee')
-    Fonemas.fonemas('joão').should include('ll o aa o')
-    Fonemas.fonemas('johan').should include('ll oo j a n')
   end
 
   it 'test diptongos' do

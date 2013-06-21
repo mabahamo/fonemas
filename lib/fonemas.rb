@@ -367,7 +367,9 @@ module Fonemas
         when 'ü' then
           fonema << 'u'
         when 'u','ú' then
-          if word[i-1] == 'g' and i == 1 and isTonica(word,i+1)
+          if word[i-1] == 'q'
+            #nada
+          elsif word[i-1] == 'g' and i == 1 and isTonica(word,i+1)
               fonema << ['gu']
           elsif isTonica(word,i)
               fonema << 'uu'
@@ -479,7 +481,7 @@ module Fonemas
   def self.lista_de_fonemas
     phonelist = ['SIL']
     phonelist += %w{a e i o u aa ee ii oo uu}
-    phonelist += %w{bb b d e f g i j k l m n o p q rr r s t u ks k gu ch dd gg ll nh}
+    phonelist += %w{bb b d e f g i j k l m n o p rr r s t u ks k gu ch dd gg ll nh}
     phonelist.uniq
   end
 
