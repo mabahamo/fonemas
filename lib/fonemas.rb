@@ -36,7 +36,7 @@ module Fonemas
   def self.isTonica(word,i)
     #falta considerar las palabras que poseen acento pero no tilde
     return true if word.size == 1
-    tildes = %w(á é í ó ú ã)
+    tildes = %w(á é í ó ú ã ä ë)
     w = word.join
     if tildes.include? word[i]
       return true
@@ -46,7 +46,7 @@ module Fonemas
       #puts es.visualize(w)
       hh = es.visualize(w).split("-")
       #puts hh.size
-      if w =~ /[áéíóú]/
+      if w =~ /[áéíóúãäë]/
         #acento ya existe en otra silaba
         return false
       else
@@ -211,17 +211,7 @@ module Fonemas
     for i in 0..(word.length-1)
       letra = word[i]
       case letra
-        when 'á','ã' then
-          fonema << 'aa'
-        when 'é' then
-          fonema << 'ee'
-        when 'í' then
-          fonema << 'ii'
-        when 'ó' then
-          fonema << 'oo'
-        when 'ú' then
-          fonema << 'uu'
-        when 'a' then
+        when 'a','á','ä','ã' then
           if isTonica(word,i)
             fonema << 'aa'
           else
@@ -273,7 +263,7 @@ module Fonemas
           else
             fonema << 'd'
           end
-        when 'e' then
+        when 'e','é','ë' then
           if isTonica(word,i)
             fonema << 'ee'
           else
@@ -299,14 +289,18 @@ module Fonemas
             fonema << ['','g']
           end
           #nada
-        when 'i' then
+        when 'i','í' then
           if isTonica(word,i)
             fonema << 'ii'
           else
             fonema << 'i'
           end
         when 'j' then
-          fonema << 'j'
+          if word[i+1] == 'o' and word[i+2] == 'ã'
+            fonema << 'll'
+          else
+            fonema << 'j'
+          end
         when 'k' then
           fonema << 'k'
         when 'l' then
@@ -319,7 +313,7 @@ module Fonemas
           fonema << 'n'
         when 'ñ'  then
           fonema << 'nh'
-        when 'o' then
+        when 'o','ó' then
           if isTonica(word,i)
             fonema << 'oo'
           else
@@ -353,7 +347,7 @@ module Fonemas
           fonema << 't'
         when 'ü' then
           fonema << 'u'
-        when 'u' then
+        when 'u','ú' then
           if word[i-1] == 'g' and i == 1 and isTonica(word,i+1)
               fonema << ['gu']
           elsif isTonica(word,i)
