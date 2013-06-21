@@ -383,7 +383,7 @@ module Fonemas
           end
 
         else
-          raise "error, no conozco pronunciación de #{letra}"
+          raise "error, no conozco pronunciación de #{letra} en #{word}"
       end
 
 
