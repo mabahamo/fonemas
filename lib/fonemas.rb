@@ -36,7 +36,7 @@ module Fonemas
   def self.isTonica(word,i)
     #falta considerar las palabras que poseen acento pero no tilde
     return true if word.size == 1
-    tildes = %w(á é í ó ú)
+    tildes = %w(á é í ó ú ã)
     w = word.join
     if tildes.include? word[i]
       return true
@@ -211,7 +211,7 @@ module Fonemas
     for i in 0..(word.length-1)
       letra = word[i]
       case letra
-        when 'á' then
+        when 'á','ã' then
           fonema << 'aa'
         when 'é' then
           fonema << 'ee'
