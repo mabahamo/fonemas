@@ -78,7 +78,7 @@ describe Fonemas do
     Fonemas.fonemas('ñ').should include('ee nh e')
     Fonemas.fonemas('o').should include('oo')
     Fonemas.fonemas('p').should include('p ee')
-    Fonemas.fonemas('q').should include('c uu')
+    Fonemas.fonemas('q').should include('k uu')
     Fonemas.fonemas('r').should include('ee rr ee')
     Fonemas.fonemas('r').should include('ee r ee')
     Fonemas.fonemas('s').should include('ee s e')

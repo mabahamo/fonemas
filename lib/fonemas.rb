@@ -176,7 +176,7 @@ module Fonemas
       when 'ñ' then ['ee nh e']
       when 'o','ó' then ['oo']
       when 'p' then ['p ee']
-      when 'q' then ['c uu']
+      when 'q' then ['k uu']
       when 'r' then ['ee rr ee','ee r ee']
       when 's' then ['ee s e']
       when 't' then ['t ee']
@@ -187,7 +187,7 @@ module Fonemas
       when 'y' then ['ll ee']
       when 'z' then ['s ee t a']
       else
-        [letra]
+        raise "error, no conozco pronunciación de #{letra}"
     end
   end
 
@@ -389,7 +389,7 @@ module Fonemas
           end
 
         else
-          fonema << letra
+          raise "error, no conozco pronunciación de #{letra}"
       end
 
 
