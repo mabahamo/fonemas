@@ -260,9 +260,11 @@ module Fonemas
           end
         when 'ch' then
           if entreVocales(word,i)
-            fonema << ['ch','sh','tch','j']
+            #fonema << ['ch','sh','tch','j']
+            fonema << 'ch'
           else
-            fonema << ['ch','sh','tch']
+            fonema << 'ch'
+            #fonema << ['ch','sh','tch']
           end
         when 'd' then
           if i == 0 and isVocal(word,i+1)
@@ -319,7 +321,8 @@ module Fonemas
         when 'l' then
           fonema << 'l'
         when 'll' then
-          fonema << ['ll','lli','i']
+          #fonema << ['ll','lli','i']
+          fonema << ['ll','i']
         when 'm' then
           fonema << 'm'
         when 'n' then
@@ -346,11 +349,14 @@ module Fonemas
           fonema << 'rr'
         when 's' then
           if word[i-1] == 'r' or word[i-1] == 'd' or i == word.size-1
-            fonema << ['s','','h']
+            #fonema << ['s','','h']
+            fonema << ['s','']
           elsif entreVocalyConsonante(word,i)
-            fonema << ['s','h']
+            #fonema << ['s','h']
+            fonema << 's'
           elsif word[i-1] == 'b' and word[i+1] == 't'
-            fonema << ['s','h']
+            #fonema << ['s','h']
+            fonema << 's'
           elsif word[i-1] == 'b'
             fonema << ['s','']
           else
@@ -381,16 +387,19 @@ module Fonemas
 #            fonema << 'Gu'
           end
         when 'x' then
-          fonema << ['ks','k','h']
+          #fonema << ['ks','k','h']
+          fonema << ['ks','k']
         when 'y' then
           if i == word.size - 1
             fonema << 'i'
           else
-            fonema << ['ll','lli','i']
+            #fonema << ['ll','lli','i']
+            fonema << 'll'
           end
         when 'z' then
           if i == word.size - 1
-            fonema << ['s','h','']
+            #fonema << ['s','h','']
+            fonema << ['s','']
           else
             fonema << 's'
           end
@@ -470,7 +479,7 @@ module Fonemas
   def self.lista_de_fonemas
     phonelist = ['SIL']
     phonelist += %w{a e i o u aa ee ii oo uu}
-    phonelist += %w{bb b d e f g h i j k l m n o p q rr r s t u ks k h gu ch tch sh dd gg ll lli nh}
+    phonelist += %w{bb b d e f g i j k l m n o p q rr r s t u ks k gu ch dd gg ll nh}
     phonelist.uniq
   end
 
