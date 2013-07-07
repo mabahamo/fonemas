@@ -3,6 +3,13 @@
 $LOAD_PATH.unshift File.expand_path(File.dirname(__FILE__) + '/../lib')
 
 require 'rest_client'
-RestClient.post('http://cluster.metaforas.cl/audios',
-  "audio[audio_original]" => File.new(ARGV[1]),
-  :api => ARGV[0])
+begin
+    RestClient.post('http://cluster.metaforas.cl/audios',
+      "audio[audio_original]" => File.new(ARGV[1]),
+      :api => ARGV[0])
+rescue
+    RestClient.post('http://cluster.metaforas.cl:8000/audios',
+          "audio[audio_original]" => File.new(ARGV[1]),
+          :api => ARGV[0])
+
+end
