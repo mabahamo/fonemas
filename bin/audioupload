@@ -20,6 +20,7 @@ t = Tempfile.new(basename)
 
 if !valido
     puts "convirtiendo a wav antes de subir"
+    `rm -f "#{t.path}"`
     `ffmpeg -i "#{filename}" -vn -acodec pcm_s16le -ar 16000 -ac 1 -f wav "#{t.path}"`
     filename = t.path
 end
