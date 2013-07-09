@@ -28,7 +28,7 @@ file = File.new(ARGV[1])
 
 begin
     RestClient.post('http://cluster.metaforas.cl/audios',
-      "audio[audio_original]" => File.new(filename,
+      "audio[audio_original]" => File.new(filename),
       :api => ARGV[0])
 rescue
     RestClient.post('http://cluster.metaforas.cl:8000/audios',
