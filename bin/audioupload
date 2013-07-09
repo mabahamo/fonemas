@@ -25,6 +25,7 @@ end
 
 file = File.new(ARGV[1])
 
+puts "uploading..."
 
 begin
     RestClient.post('http://cluster.metaforas.cl/audios',
@@ -37,4 +38,8 @@ rescue
 
 end
 
+
 t.close
+
+
+puts "ready"
