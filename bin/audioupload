@@ -6,6 +6,8 @@ require 'rest_client'
 require 'mime/types'
 require 'tempfile'
 filename = ARGV[1]
+basename =  File.basename(filename)
+
 types = MIME::Types.type_for(filename)
 valido = false
 for i in types
@@ -14,7 +16,7 @@ for i in types
     end
 end
 
-t = Tempfile.new(filename)
+t = Tempfile.new(basename)
 
 if !valido
     puts "convirtiendo a wav antes de subir"
