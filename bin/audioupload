@@ -9,7 +9,7 @@ filename = ARGV[1]
 types = MIME::Types.type_for(filename)
 valido = false
 for i in types
-    if i.includes? "wav" or i.includes? "x-wav"
+    if i.content_type.includes? "wav" or i.content_type.includes? "x-wav"
         valido = true
     end
 end
