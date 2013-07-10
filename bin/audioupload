@@ -27,17 +27,22 @@ end
 
 
 file = File.new(ARGV[1])
+public = false
+if ARGV.size >= 3
+    public = ARGV[2]
+end
 
 puts "uploading..."
+
 
 begin
     RestClient.post('http://cluster.metaforas.cl/audios',
       "audio[audio_original]" => File.new(filename),
-      :api => ARGV[0])
+      :api => ARGV[0], "audio[public]" => public )
 rescue
     RestClient.post('http://cluster.metaforas.cl:8000/audios',
           "audio[audio_original]" => File.new(filename),
-          :api => ARGV[0])
+          :api => ARGV[0], "audio[public]" => public)
 
 end
 
