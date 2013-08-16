@@ -16,9 +16,10 @@ for i in types
     end
 end
 
-t = Tempfile.new(basename)
+t = nil
 
 if !valido
+    t = Tempfile.new(basename)
     puts "convirtiendo a wav antes de subir"
     `rm -f "#{t.path}"`
     `ffmpeg -i "#{filename}" -vn -acodec pcm_s16le -ar 16000 -ac 1 -f wav "#{t.path}"`
@@ -38,16 +39,19 @@ puts "uploading..."
 begin
     RestClient.post('http://cluster.metaforas.cl/audios',
       "audio[audio_original]" => File.new(filename),
-      :api => ARGV[0], "audio[public]" => public )
+      :api => ARGV[0], "audio[public]" => public, "audio[txt]" => ARGV[3] )
 rescue
     RestClient.post('http://cluster.metaforas.cl:8000/audios',
           "audio[audio_original]" => File.new(filename),
-          :api => ARGV[0], "audio[public]" => public)
+          :api => ARGV[0], "audio[public]" => public, "audio[txt]" => ARGV[3] )
 
 end
 
+if !valido
+    t.close
+    `rm -f "#{t.path}"`
+end
 
-t.close
 
 
 puts "ready"
