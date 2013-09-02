@@ -5,6 +5,21 @@ $LOAD_PATH.unshift File.expand_path(File.dirname(__FILE__) + '/../lib')
 require 'rest_client'
 require 'mime/types'
 require 'tempfile'
+
+def upload_audio(filename, api,public,tag,txt)
+
+begin
+    RestClient.post('http://cluster.metaforas.cl/audios',
+      "audio[audio_original]" => File.new(filename),
+      :api => api, "audio[public]" => public, "audio[tag]" => tag, "audio[txt]" => txt )
+    rescue
+        RestClient.post('http://cluster.metaforas.cl:8000/audios',
+              "audio[audio_original]" => File.new(filename),
+              :api => api, "audio[public]" => public, "audio[tag]" => tag, "audio[txt]" => txt )
+
+    end
+end
+
 filename = ARGV[1]
 basename =  File.basename(filename)
 
@@ -33,19 +48,38 @@ if ARGV.size >= 3
     public = ARGV[2]
 end
 
+
 puts "uploading..."
 
+if ARGV[3].nil?
+    upload_audio(filename,ARGV[0],public,nil,ARGV[4])
+else
+    limit = ARGV[3].to_i
+    lr = `ffmpeg -i "#{filename}" 2>&1 | grep 'Duration'| cut -d ' ' -f 4 | cut -d ',' -f 1`
+    lr = lr.split(':')
+    length = lr[0].to_i*3600 + lr[1].to_i*60 + lr[2].to_f
+    start_time = 0
+    counter = 0
+    max_parts = (length/limit).ceil
+    while start_time <= length do
+        counter += 1
 
-begin
-    RestClient.post('http://cluster.metaforas.cl/audios',
-      "audio[audio_original]" => File.new(filename),
-      :api => ARGV[0], "audio[public]" => public, "audio[txt]" => ARGV[3] )
-rescue
-    RestClient.post('http://cluster.metaforas.cl:8000/audios',
-          "audio[audio_original]" => File.new(filename),
-          :api => ARGV[0], "audio[public]" => public, "audio[txt]" => ARGV[3] )
+        duration = [limit,length - start_time].min
+        hex = Digest::MD5.hexdigest(rand().to_s)
+        tag = hex[0, 8] + "_#{counter}_#{max_parts}"
+
+        `sox '#{filename}' -b 16 -s -c 1 -r 16k '#{filename}-#{counter}-#{max_parts}.wav' trim #{start_time} #{duration}`
+
+        upload_audio("#{filename}-#{counter}-#{max_parts}.wav",ARGV[0],public,tag,ARGV[4])
+
+        start_time += duration
+
+    end
 
 end
+
+
+
 
 if !valido
     t.close
