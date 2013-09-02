@@ -49,15 +49,18 @@ if ARGV.size >= 3
 end
 
 
-puts "uploading..."
+
 
 if ARGV[3].nil?
+    puts "uploading..."
     upload_audio(filename,ARGV[0],public,nil,ARGV[4])
 else
     limit = ARGV[3].to_i
+    puts "cortando archivos en trozos de #{limit} segundos"
     lr = `ffmpeg -i "#{filename}" 2>&1 | grep 'Duration'| cut -d ' ' -f 4 | cut -d ',' -f 1`
     lr = lr.split(':')
     length = lr[0].to_i*3600 + lr[1].to_i*60 + lr[2].to_f
+    puts "largo original archivo: #{lr}"
     start_time = 0
     counter = 0
     max_parts = (length/limit).ceil
@@ -67,12 +70,13 @@ else
         duration = [limit,length - start_time].min
         hex = Digest::MD5.hexdigest(rand().to_s)
         tag = hex[0, 8] + "_#{counter}_#{max_parts}"
-
+        puts "convirtiendo  #{counter}/#{max_parts}"
         `sox '#{filename}' -b 16 -s -c 1 -r 16k '#{filename}-#{counter}-#{max_parts}.wav' trim #{start_time} #{duration}`
+        puts "uploading... #{counter}/#{max_parts}"
 
         upload_audio("#{filename}-#{counter}-#{max_parts}.wav",ARGV[0],public,tag,ARGV[4])
 
-        start_time += duration
+        start_time += limit
 
     end
 
