@@ -2,7 +2,6 @@
 require "fonemas/version"
 
 module Fonemas
-  require 'text/hyphen'
   require 'unicode_utils'
 
   def self.version
@@ -33,24 +32,134 @@ module Fonemas
     return false
   end
 
-  def self.silabar(word)
-    es = Text::Hyphen.new(:language => "es", :left => 0, :right => 1)
-    hh = es.visualize(word)
-    return hh
+  def self.silabar(palabra)
+    #puts "silabar: #{palabra}"
+    #algoritmo adaptado desde python
+    #codigo original extraido desde:
+    #https://github.com/xergio/silabas/blob/master/home/silabea.py
+    silabas = []
+    letra = 0
+    salto = 0
+    while silabas.join('').length  < palabra.length
+      #puts "silabas antes: #{silabas}"
+      #puts "letra: #{letra}"
+      #puts "palabra length: #{palabra.length}"
+      silaba = ''
+      salto = 0
+      if isConsonante(palabra[letra])
+        if isInseparables(palabra[letra..letra+1])
+          salto += 2
+        else
+          salto += 1
+        end
+      else
+        salto += 0
+      end
+
+      #puts "salto: #{salto}"
+      if isDiptongoConH(palabra,letra+salto,letra+salto+2)
+        #puts "diptongo con h"
+        salto += 3
+      elsif isDiptongo(palabra,letra+salto,letra+salto+1)
+        salto += 2
+      elsif isTriptongo(palabra,letra+salto,letra+salto+2)
+        salto += 3
+      elsif isDieresis(palabra,letra+salto,letra+salto+1)
+        salto += 2
+      else
+        salto += 1
+      end
+      #puts "acoda silaba: #{palabra[letra,letra+salto]} letra: #{letra} salto: #{salto}"
+
+      salto += coda(palabra[letra+salto,palabra.length])
+
+      #puts "dcoda silaba: #{palabra[letra,letra+salto]} letra: #{letra} salto: #{salto}"
+
+
+      silaba = palabra[letra,salto]
+      letra += salto
+      silabas << silaba
+
+      #puts "Dletra: #{letra}"
+      #puts "Dsalto: #{salto}"
+
+    end
+    return silabas.join("-")
   end
 
+  def self.isInseparables(trozo)
+    #puts "isInspearable? #{trozo}"
+    inseparables = %w(br bl cr cl dr fr fl gr gl kr ll pr pl tr rr ch)
+    return inseparables.include? trozo
+  end
+
+  def self.coda(trozo)
+    #puts "coda: #{trozo}"
+    l = trozo.length
+    if l == 0
+      return 0
+    elsif l == 1 and isConsonante(trozo)
+      return 1
+    elsif l > 1 and isInseparables(trozo[0,2])
+      return 0
+    elsif l > 1 and isConsonante(trozo,0) and isVocal(trozo,1)
+      return 0
+    elsif l > 2 and isConsonante(trozo,0) and isConsonante(trozo,1) and isVocal(trozo,2)
+      return 1
+    elsif l > 3 and isConsonante(trozo,0) and isInseparables(trozo[1,2]) and isVocal(trozo[3])
+      return 1
+    elsif l > 3 and isConsonante(trozo,0) and isConsonante(trozo,1) and isConsonante(trozo,2) and isVocal(trozo,3)
+      return 2
+    elsif l > 3 and isConsonante(trozo,0) and isConsonante(trozo,1) and isConsonante(trozo,2) and isConsonante(trozo,3)
+      return 2
+    else
+      return 0
+    end
+  end
+
+
+  def self.calcularPosicionSilabas(silabada)
+    #puts "calcular posicion #{silabada}."
+    output = []
+    text = silabada
+    while(!text.index("-").nil?)
+      i = text.index("-")
+      text = text.slice(0,i) + text.slice(i+1,text.length)
+      output << i
+    end
+    return output
+  end
+
+
   def self.isTonica(word,i)
+    test = _isTonica(word,i)
+    if test
+      if _isTonica(word,i+1)
+        return false
+      else
+        return test
+      end
+    else
+      return false
+    end
+  end
+
+
+  def self._isTonica(word,i)
+    return false if isConsonante(word,i)
     #falta considerar las palabras que poseen acento pero no tilde
-    return true if word.size == 1
     tildes = %w(á é í ó ú ã ä ë)
     w = word.join
-    if tildes.include? word[i]
+    #puts "isTonica? #{w}: #{i}"
+    return true if w.size == 1
+
+
+    if tildes.include? w[i]
       return true
     else
-      es = Text::Hyphen.new(:language => "es", :left => 0, :right => 1)
-      p = es.hyphenate(w)
-      #puts es.visualize(w)
-      hh = es.visualize(w).split("-")
+      g = silabar(w)
+      hh = g.split("-")
+      p = calcularPosicionSilabas(g)
 
       if hh.size == 1 and w.size > 4 and w.include? 'h' and w[0] != 'h'
         #caso johan
@@ -96,7 +205,8 @@ module Fonemas
             end
         elsif hh.size >= 3
           #puts hh.join("-")
-          if i > p[p.size-1]
+          #puts "hhsize3 i: #{i}, p:#{p}"
+          if i >= p[p.size-1]
             if w =~ /[nsaeiou]$/
               return false
             else
@@ -138,18 +248,56 @@ module Fonemas
 
   end
 
-  def self.isVocal(word,i)
+  def self.isVocal(word,i=0)
     vocales = %w(a e i o u á é í ó ú)
     return vocales.include? word[i]
   end
 
+  def self.isConsonante(word,i=0)
+    return !isVocal(word,i)
+  end
+
+  def self.isTriptongo(palabra,first,third)
+    t = palabra[first,third]
+    return false if t.length < 3
+    triptongos = %w(iai iei uai uei uau iau uay uey)
+    return triptongos.include? t
+  end
+
+  def self.isDieresis(palabra,first,second)
+    t = palabra[first,second]
+    return false if t.length < 2
+    dieresis = %w(ue ui)
+    return dieresis.include? t
+
+  end
+
   def self.isDiptongo(word,first,second)
+    trozo = word[first..second]
+    return false if trozo.length != 2
+    #puts "diptongo word #{word}, first: #{first}, second: #{second}"
+    #puts "test diptongo #{word[first] + word[second]}"
     f = word[first]
     s = word[second]
-    abiertas = %w(a e o)
-    cerradas = %w(i u)
+    abiertas = %w(a e o á é ó)
+    cerradas = %w(i u í ú)
     return ((abiertas.include? f and cerradas.include? s) or (abiertas.include? s and cerradas.include? f) or (cerradas.include? f and cerradas.include? s))
 
+  end
+
+  def self.isDiptongoConH(word,first,third)
+    test = word[first..third]
+    #puts "test diptongo con h: #{test}"
+    if test[1] == 'h'
+      if test[2,2] == 'ue'
+        return false
+      else
+        test = test.gsub(/h/,'')
+      end
+    else
+      return false
+    end
+    return isDiptongo(test,0,1)
   end
 
   def self.separar(word)

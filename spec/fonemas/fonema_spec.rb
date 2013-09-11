@@ -1,7 +1,7 @@
 # encoding: utf-8
 require 'spec_helper'
 describe Fonemas do
-  it 'test acentos' do
+  it 'test acentos'  do
     Fonemas.fonemas('hasta').should include("aa s t a")
     Fonemas.fonemas('torta').should include("t oo r t a")
     Fonemas.fonemas('ungüento').should include("u n g u ee n t o")
@@ -29,7 +29,6 @@ describe Fonemas do
     Fonemas.fonemas('guatón').should include('g u a t oo n')
     Fonemas.fonemas('gu').should include('gg u')
     Fonemas.fonemas('guagua').should include('gu aa g u a')
-    Fonemas.fonemas('joão').should include('ll o aa o')
     Fonemas.fonemas('johan').should include('ll oo j a n')
     Fonemas.fonemas('adquirir').should include('a d k i r ii r')
     for i in Fonemas.fonemas('adskribir')
@@ -111,8 +110,19 @@ describe Fonemas do
   end
 
   it 'debe saber separar silabas' do
-    Fonemas.silabar('camión').should eql('ca-mión')
+    Fonemas.silabar('áfrica').should eql('á-fri-ca')
+    Fonemas.silabar('abstraer').should eql('abs-tra-er')
+    Fonemas.silabar('ahuyentar').should eql('ahu-yen-tar')
     Fonemas.silabar('acaban').should eql('a-ca-ban')
+    Fonemas.silabar('pino').should eql('pi-no')
+    Fonemas.silabar('camión').should eql('ca-mión')
+    Fonemas.silabar('holanda').should eql('ho-lan-da')
+    Fonemas.silabar('abuela').should eql('a-bue-la')
+
+  end
+
+  it 'marcar inicios de cada silaba' do
+    Fonemas.calcularPosicionSilabas('ho-lan-da').should eql([2,5])
   end
 
   it 'identificar sílaba tónica' do
