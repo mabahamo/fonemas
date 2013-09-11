@@ -108,8 +108,25 @@ describe Fonemas do
     output.should include('a b e')
     output.should include('a c d')
     output.should include('a c e')
+  end
 
+  it 'debe saber separar silabas' do
+    Fonemas.silabar('camión').should eql('ca-mión')
+    Fonemas.silabar('acaban').should eql('a-ca-ban')
+  end
 
+  it 'identificar sílaba tónica' do
+    word = Fonemas.separar('acaban')
+    Fonemas.isTonica(word,0).should be_false
+    Fonemas.isTonica(word,2).should be_true
+    Fonemas.isTonica(word,4).should be_false
+
+  end
+
+  it 'sólo debe existir una sílaba acentuada' do
+    fonemas = Fonemas.fonemas('acaban')
+    fonemas.should_not include('aa k aa b a n')
+    fonemas.should include('a k aa b a n')
   end
 
 end

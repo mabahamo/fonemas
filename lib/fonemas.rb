@@ -33,6 +33,12 @@ module Fonemas
     return false
   end
 
+  def self.silabar(word)
+    es = Text::Hyphen.new(:language => "es", :left => 0, :right => 1)
+    hh = es.visualize(word)
+    return hh
+  end
+
   def self.isTonica(word,i)
     #falta considerar las palabras que poseen acento pero no tilde
     return true if word.size == 1

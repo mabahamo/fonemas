@@ -51,7 +51,7 @@ end
 
 
 
-if ARGV[3].nil?
+if f[3].nil?
     puts "uploading..."
     upload_audio(filename,ARGV[0],public,nil,ARGV[4])
 else
@@ -60,7 +60,7 @@ else
     lr = `ffmpeg -i "#{filename}" 2>&1 | grep 'Duration'| cut -d ' ' -f 4 | cut -d ',' -f 1`
     lr = lr.split(':')
     length = lr[0].to_i*3600 + lr[1].to_i*60 + lr[2].to_f
-    puts "largo original archivo: #{lr}"
+    puts "largo original archivo: #{length}"
     start_time = 0
     counter = 0
     max_parts = (length/limit).ceil
