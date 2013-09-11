@@ -94,6 +94,7 @@ module Fonemas
   end
 
   def self.coda(trozo)
+    return 0 if trozo.nil?
     #puts "coda: #{trozo}"
     l = trozo.length
     if l == 0

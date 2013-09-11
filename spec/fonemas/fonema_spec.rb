@@ -139,4 +139,8 @@ describe Fonemas do
     fonemas.should include('a k aa b a n')
   end
 
+  it 'no caemos con nada' do
+    Fonemas.fonemas('confech')
+  end
+
 end
