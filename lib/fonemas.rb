@@ -408,7 +408,7 @@ module Fonemas
             fonema << 'bb'
           end
         when 'c' then
-          if word[i+1] == 'e' or word[i+1] == 'i'
+          if word[i+1] == 'e' or word[i+1] == 'i' or word[i+1] == 'í' or word[i+1] == 'é'
             fonema << 's'
           else
             fonema << 'k'

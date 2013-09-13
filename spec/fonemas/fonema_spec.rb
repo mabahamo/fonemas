@@ -34,6 +34,7 @@ describe Fonemas do
     for i in Fonemas.fonemas('adskribir')
       i.should end_with('ii r')
     end
+    Fonemas.fonemas('alcancía').should include('a l k a n s ii a')
   end
 
   it 'lista fonemas utilizados' do
