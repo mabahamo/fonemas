@@ -35,6 +35,9 @@ describe Fonemas do
       i.should end_with('ii r')
     end
     Fonemas.fonemas('alcancía').should include('a l k a n s ii a')
+    Fonemas.fonemas('aproximadamente').should include('a p r o ks i m a d a m ee n t e')
+    Fonemas.fonemas('aproximadamente').should_not include('a p r o k i m a d a m ee n t e')
+
   end
 
   it 'lista fonemas utilizados' do

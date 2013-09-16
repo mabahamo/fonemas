@@ -545,7 +545,8 @@ module Fonemas
           end
         when 'x' then
           #fonema << ['ks','k','h']
-          fonema << ['ks','k']
+          #fonema << ['ks','k']
+          fonema << 'ks'
         when 'y' then
           if i == word.size - 1
             fonema << 'i'
