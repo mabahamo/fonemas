@@ -24,7 +24,7 @@ Or install it yourself as:
 
 Also you can use it from the command line:
 
-    fonemas archivo.txt
+    fonemas wordlist.txt
 
 or print the phonem list:
 
