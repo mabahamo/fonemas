@@ -23,7 +23,7 @@ module Fonemas
   def self.lastVocal(word,from)
     #puts "last vocal for #{word} from #{from}"
     for i in 1..from
-     # puts i
+      #puts i
       #puts word[from-i]
       if word[from-i] =~ /[aeiou]/
         return word[from-i]
@@ -160,6 +160,7 @@ module Fonemas
     else
       g = silabar(w)
       hh = g.split("-")
+
       p = calcularPosicionSilabas(g)
 
       if hh.size == 1 and w.size > 4 and w.include? 'h' and w[0] != 'h'
@@ -179,7 +180,9 @@ module Fonemas
       else
         #puts es.visualize(w)
         if hh.size == 1
-          if lastVocal(w,w.size-1) == word[i]
+          #puts "hh size 1"
+          #puts "lastVocal: #{lastVocal(w,w.size)} == #{word[i]}"
+          if lastVocal(w,w.size) == word[i]
             return true
           else
             return false
@@ -447,7 +450,7 @@ module Fonemas
             fonema << 'j'
           else
             if !entreVocales(word,i) and word[i-1] != 'n'
-              fonema << 'gg'
+              fonema << 'g'
             else
               fonema << 'g'
             end
@@ -525,7 +528,11 @@ module Fonemas
           if word[i-1] == 'q'
             #nada
           elsif word[i-1] == 'g' and i == 1 and isTonica(word,i+1)
-              fonema << ['gu']
+            if word[i+1] == 'e'
+              fonema << 'g'
+            else
+              fonema << [['g','u']]
+            end
           elsif isTonica(word,i)
               fonema << 'uu'
           else
@@ -539,7 +546,7 @@ module Fonemas
           elsif word[i+1] == 'i'
             fonema << 'u'
           else #if entreVocales(word,i)
-            fonema << 'gu'
+            fonema << [['g','u']]
 #          else
 #            fonema << 'Gu'
           end
@@ -637,7 +644,7 @@ module Fonemas
   def self.lista_de_fonemas
     phonelist = ['SIL']
     phonelist += %w{a e i o u aa ee ii oo uu}
-    phonelist += %w{bb b d e f g i j k l m n o p rr r s t u ks k gu ch dd gg ll nh}
+    phonelist += %w{bb b d e f g i j k l m n o p rr r s t u ks k ch dd ll nh}
     phonelist.uniq
   end
 

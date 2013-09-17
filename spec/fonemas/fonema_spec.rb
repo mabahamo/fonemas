@@ -11,7 +11,7 @@ describe Fonemas do
     Fonemas.fonemas('gestión').should include('j e s t i oo n')
     Fonemas.fonemas('abstraer').should include('a bb s t r a ee r')
     Fonemas.fonemas('presidida').should include('p r e s i ii d a')
-    Fonemas.fonemas('guerra').should include('gu ee rr a')
+    Fonemas.fonemas('guerra').should include('g ee rr a')
     Fonemas.fonemas('buitre').should include('g u ii t r e')
     Fonemas.fonemas('huaso').should include('g u aa s o')
     Fonemas.fonemas('huevo').should include('g u ee b o')
@@ -27,8 +27,8 @@ describe Fonemas do
     Fonemas.fonemas('d').should_not include('')
     Fonemas.fonemas('dé').should include('d ee')
     Fonemas.fonemas('guatón').should include('g u a t oo n')
-    Fonemas.fonemas('gu').should include('gg u')
-    Fonemas.fonemas('guagua').should include('gu aa g u a')
+    Fonemas.fonemas('gu').should include('g uu')
+    Fonemas.fonemas('guagua').should include('g u aa g u a')
     Fonemas.fonemas('johan').should include('ll oo j a n')
     Fonemas.fonemas('adquirir').should include('a d k i r ii r')
     for i in Fonemas.fonemas('adskribir')
@@ -37,6 +37,7 @@ describe Fonemas do
     Fonemas.fonemas('alcancía').should include('a l k a n s ii a')
     Fonemas.fonemas('aproximadamente').should include('a p r o ks i m a d a m ee n t e')
     Fonemas.fonemas('aproximadamente').should_not include('a p r o k i m a d a m ee n t e')
+    Fonemas.fonemas('software').should include('s o f t g u aa r e')
 
   end
 
