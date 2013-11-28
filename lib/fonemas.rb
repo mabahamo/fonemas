@@ -378,7 +378,7 @@ module Fonemas
       for i in word.split(" ")
         output << Fonemas.fonemas(i)[0]
       end
-      return output.join(" ")
+      return [ output.join(" ") ]
     end
     return self.fonemas(abreviacion(word)) unless abreviacion(word).nil?
     return self.nombres(word) unless self.nombres(word).nil?
