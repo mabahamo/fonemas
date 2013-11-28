@@ -155,7 +155,7 @@ describe Fonemas do
 
   it 'soporta abreviaciones' do
     Fonemas.fonemas('hz')[0].should eql(Fonemas.fonemas('hertz')[0])
-    Fonemas.fonemas('khz')[0].should eql(Fonemas.fonemas('kilo hertz')[0])
+    Fonemas.fonemas('khz').should include('k ii l o j e r t s')
   end
 
 end
