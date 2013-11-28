@@ -148,4 +148,14 @@ describe Fonemas do
     Fonemas.fonemas('confech')
   end
 
+  it 'nombres propios proseen su propias reglas' do
+    Fonemas.fonemas('hertz')[0].should eql('j e r t s')
+
+  end
+
+  it 'soporta abreviaciones' do
+    Fonemas.fonemas('hz')[0].should eql(Fonemas.fonemas('hertz')[0])
+    Fonemas.fonemas('khz')[0].should eql(Fonemas.fonemas('kilo hertz')[0])
+  end
+
 end

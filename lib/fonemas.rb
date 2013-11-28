@@ -360,8 +360,28 @@ module Fonemas
     end
   end
 
+  def self.nombres(word)
+    return ['j e r t s'] if word == 'hertz'
+    return nil
+  end
+
+  def self.abreviacion(word)
+    return "hertz" if word == 'hz'
+    return "kilo hertz" if word == 'khz'
+    return nil
+  end
+
 
   def self.fonemas(word)
+    if word.include? ' '
+      output = []
+      for i in word.split(" ")
+        output << Fonemas.fonemas(i)[0]
+      end
+      return output
+    end
+    return self.fonemas(abreviacion(word)) unless abreviacion(word).nil?
+    return self.nombres(word) unless self.nombres(word).nil?
     word = word.gsub(/'/,'')
     if word.size == 1
       return fonemaLetra(word)
