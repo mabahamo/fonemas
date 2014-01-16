@@ -158,4 +158,10 @@ describe Fonemas do
     Fonemas.fonemas('khz').should include('k ii l o j e r t s')
   end
 
+  it 's debe pronunciarse' do
+    Fonemas.fonemas('concurso').should include('k o n k uu r s o')
+    Fonemas.fonemas('concurso').should_not include('k o n k uu r o')
+
+  end
+
 end

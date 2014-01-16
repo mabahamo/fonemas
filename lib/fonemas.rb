@@ -526,7 +526,8 @@ module Fonemas
         when 'rr' then
           fonema << 'rr'
         when 's' then
-          if word[i-1] == 'r' or word[i-1] == 'd' or i == word.size-1
+          if word[i-1] == 'd' or i == word.size-1
+          #if word[i-1] == 'r' or word[i-1] == 'd' or i == word.size-1
             #fonema << ['s','','h']
             fonema << ['s','']
           elsif entreVocalyConsonante(word,i)
