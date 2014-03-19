@@ -408,18 +408,18 @@ module Fonemas
           end
         when 'b','v' then
           if isVocal(word,i-1) and (word[i+1] == 'b' or word[i+1] == 'v')
-            fonema << ['bb','']
+            fonema << ['b','']
           elsif i == 0 and isVocal(word,i+1)
             if word[i+1] == 'u' and isDiptongo(word,i+1,i+2)
-              fonema << ['bb','b','g']
+              fonema << ['b','g']
             else
-              fonema << ['bb','b']
+              fonema << ['b']
             end
           elsif word[i+1] == 'u' and isDiptongo(word,i+1,i+2)
             if entreVocales(word,i)
               fonema << ['b','g','']
             else
-              fonema << ['bb','g']
+              fonema << ['b','g']
             end
           elsif isFricativa(word,i-1)
             fonema << 'b'
@@ -428,7 +428,7 @@ module Fonemas
           elsif entreVocales(word,i)
             fonema << ['b','']
           else
-            fonema << 'bb'
+            fonema << 'b'
           end
         when 'c' then
           if word[i+1] == 'e' or word[i+1] == 'i' or word[i+1] == 'í' or word[i+1] == 'é'
@@ -446,11 +446,11 @@ module Fonemas
           end
         when 'd' then
           if i == 0 and isVocal(word,i+1)
-            fonema << ['dd','d']
+            fonema << ['d']
           elsif entreVocales(word,i) or i == word.size-1
             fonema << ['d','']
           elsif entreVocalyConsonante(word,i)
-            fonema << ['dd','d']
+            fonema << ['d']
           else
             fonema << 'd'
           end
@@ -561,7 +561,7 @@ module Fonemas
           end
         when 'w' then
           if i == 0
-            fonema << ['b','bb']
+            fonema << ['b']
           elsif word[i-1] == 'o'
             fonema << 'u'
           elsif word[i+1] == 'i'
@@ -665,7 +665,7 @@ module Fonemas
   def self.lista_de_fonemas
     phonelist = ['SIL']
     phonelist += %w{a e i o u aa ee ii oo uu}
-    phonelist += %w{bb b d e f g i j k l m n o p rr r s t u ks k ch dd ll nh}
+    phonelist += %w{b d e f g i j k l m n o p rr r s t u ks k ch ll nh}
     phonelist.uniq
   end
 
