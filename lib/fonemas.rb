@@ -560,7 +560,9 @@ module Fonemas
               fonema << 'u'
           end
         when 'w' then
-          if i == 0
+          if i == 0 and word[i+1] == 'e'
+            fonema << ['u']
+          elsif i == 0
             fonema << ['b']
           elsif word[i-1] == 'o'
             fonema << 'u'

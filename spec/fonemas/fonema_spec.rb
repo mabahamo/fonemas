@@ -164,4 +164,8 @@ describe Fonemas do
 
   end
 
+  it 'test web' do
+    Fonemas.fonemas('web').should include('u ee b')
+  end
+
 end
