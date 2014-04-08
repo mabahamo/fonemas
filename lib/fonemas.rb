@@ -401,7 +401,9 @@ module Fonemas
       letra = word[i]
       case letra
         when 'a','á','ä','ã' then
-          if isTonica(word,i)
+          if isTonica(word,i) and word[i+1] == 'y' and word[i+2] == 'l'
+            fonema << 'ee'
+          elsif isTonica(word,i)
             fonema << 'aa'
           else
             fonema << 'a'
@@ -560,7 +562,9 @@ module Fonemas
               fonema << 'u'
           end
         when 'w' then
-          if i == 0 and word[i+1] == 'e'
+          if word[i-1] == 'l'
+            fonema << [['g','u']]
+          elsif i == 0 and word[i+1] == 'e'
             fonema << ['u']
           elsif i == 0
             fonema << ['b']
@@ -579,6 +583,8 @@ module Fonemas
           fonema << 'ks'
         when 'y' then
           if i == word.size - 1
+            fonema << 'i'
+          elsif word[i+1] == 'l'
             fonema << 'i'
           else
             #fonema << ['ll','lli','i']

@@ -150,6 +150,8 @@ describe Fonemas do
 
   it 'nombres propios proseen su propias reglas' do
     Fonemas.fonemas('hertz')[0].should eql('j e r t s')
+    Fonemas.fonemas('aylwin').should_not include("aa ll l u i n")
+    Fonemas.fonemas('aylwin').should include("ee i l g u i n")
 
   end
 
@@ -167,5 +169,6 @@ describe Fonemas do
   it 'test web' do
     Fonemas.fonemas('web').should include('u ee b')
   end
+
 
 end
