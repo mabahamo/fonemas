@@ -155,7 +155,7 @@ module Fonemas
     return true if w.size == 1
 
 
-    if tildes.include? w[i]
+    if tildes.include? word[i]
       return true
     else
       g = silabar(w)

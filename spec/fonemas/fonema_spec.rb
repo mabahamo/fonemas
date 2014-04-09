@@ -38,8 +38,11 @@ describe Fonemas do
     Fonemas.fonemas('aproximadamente').should include('a p r o ks i m a d a m ee n t e')
     Fonemas.fonemas('aproximadamente').should_not include('a p r o k i m a d a m ee n t e')
     Fonemas.fonemas('software').should include('s o f t g u aa r e')
+    Fonemas.fonemas('llamémosla').should include('ll a m ee m o s l a')
 
   end
+
+
 
   it 'lista fonemas utilizados' do
     words = %w{hasta ungüento huifa obvio guerra chile sexo mañana}
@@ -168,6 +171,18 @@ describe Fonemas do
 
   it 'test web' do
     Fonemas.fonemas('web').should include('u ee b')
+  end
+
+  it 'palabras esdrújulas' do
+    silabas = Fonemas.silabar('llamémosla')
+    silabas.split("-").size.should eql(4)
+    word = Fonemas.separar('llamémosla')
+    word[0].should eql('ll')
+    word[3].should eql('é')
+    Fonemas.isConsonante(word,3).should be_false
+    Fonemas._isTonica(word,3).should be_true
+    Fonemas.isTonica(word,3).should be_true
+
   end
 
 
