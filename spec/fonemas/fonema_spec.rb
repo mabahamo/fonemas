@@ -35,7 +35,7 @@ describe Fonemas do
       i.should end_with('ii r')
     end
     Fonemas.fonemas('alcancía').should include('a l k a n s ii a')
-    Fonemas.fonemas('aproximadamente').should include('a p r o ks i m a d a m ee n t e')
+    Fonemas.fonemas('aproximadamente').should include('a p r o k s i m a d a m ee n t e')
     Fonemas.fonemas('aproximadamente').should_not include('a p r o k i m a d a m ee n t e')
     Fonemas.fonemas('software').should include('s o f t g u aa r e')
     Fonemas.fonemas('llamémosla').should include('ll a m ee m o s l a')
@@ -99,7 +99,7 @@ describe Fonemas do
     Fonemas.fonemas('w').should include('d o b l e b ee')
     Fonemas.fonemas('w').should include('d o b l e uu b e')
     Fonemas.fonemas('x').should include('ee k i s')
-    Fonemas.fonemas('y').should include('ll ee')
+    Fonemas.fonemas('y').should include('ii')
     Fonemas.fonemas('z').should include('s ee t a')
     Fonemas.fonemas('é').should include('ee')
   end
@@ -155,6 +155,9 @@ describe Fonemas do
     Fonemas.fonemas('hertz')[0].should eql('j e r t s')
     Fonemas.fonemas('aylwin').should_not include("aa ll l u i n")
     Fonemas.fonemas('aylwin').should include("ee i l g u i n")
+    Fonemas.fonemas('xavier').should_not include('ks a b i ee r')
+    Fonemas.fonemas('xavier').should include('j a b i ee r')
+
 
   end
 
@@ -182,8 +185,8 @@ describe Fonemas do
     Fonemas.isConsonante(word,3).should be_false
     Fonemas._isTonica(word,3).should be_true
     Fonemas.isTonica(word,3).should be_true
-
   end
+
 
 
 end

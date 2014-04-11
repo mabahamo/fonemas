@@ -327,6 +327,7 @@ module Fonemas
   end
 
   def self.fonemaLetra(letra)
+    #cuando la palabra solo tiene una letra se usa esta pronunciación
     case letra
       when 'a','á' then ['aa']
       when 'b' then ['b ee']
@@ -353,7 +354,7 @@ module Fonemas
       when 'v' then ['b ee','uu b e']
       when 'w' then ['d o b l e b ee','d o b l e uu b e']
       when 'x' then ['ee k i s']
-      when 'y' then ['ll ee']
+      when 'y' then ['ii']
       when 'z' then ['s ee t a']
       else
         raise "error, no conozco pronunciación de #{letra}"
@@ -578,9 +579,15 @@ module Fonemas
 #            fonema << 'Gu'
           end
         when 'x' then
+          if i == 0 and word[i+1] == 'a'
+            fonema << 'j'
+          elsif i== 0 and word[i+1] == 'i'
+            fonema << 's'
+          else
+            fonema << [['k','s']]
+          end
           #fonema << ['ks','k','h']
           #fonema << ['ks','k']
-          fonema << 'ks'
         when 'y' then
           if i == word.size - 1
             fonema << 'i'
@@ -673,7 +680,8 @@ module Fonemas
   def self.lista_de_fonemas
     phonelist = ['SIL']
     phonelist += %w{a e i o u aa ee ii oo uu}
-    phonelist += %w{b d e f g i j k l m n o p rr r s t u ks k ch ll nh}
+    phonelist += %w{b d e f g i j k l m n o p rr r s t u k ch ll nh}
+    phonelist << '++RUIDO++'
     phonelist.uniq
   end
 
