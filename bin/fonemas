@@ -19,6 +19,22 @@ if ARGV.include?('--version')
   exit
 end
 
+if ARGV.include?('--help') || ARGV.include?('-h')
+  data=<<-EOF
+Fonemas #{Fonemas.version}
+
+
+archivo.txt                   Procesa archivo con lista de palabras (1 palabra por linea) y genera los fonemas de todas
+                              las palabras presentes en archivo.txt
+-h, --help                    Muestra este mensaje de ayuda
+-w palabra, --word palabra    Muestra los fonemas asociados a palabra
+--list                        Muestra la lista de fonemas
+
+  EOF
+  puts data
+  exit
+end
+
 ARGF.set_encoding('UTF-8')
 
 input = ARGF.readlines

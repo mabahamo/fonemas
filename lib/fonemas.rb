@@ -478,6 +478,12 @@ module Fonemas
               fonema << 'g'
             end
           end
+        when '-' then
+          if i == 0 or i == word.size - 1
+            #nada
+          else
+            raise "no se como pronunciar - en #{word}"
+          end
         when 'h' then
           if word[i+1] == 'u' and isDiptongo(word,i+1,i+2)
             fonema << ['','g']

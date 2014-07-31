@@ -187,6 +187,19 @@ describe Fonemas do
     Fonemas.isTonica(word,3).should be_true
   end
 
+  it 'debe soportar palabras parciales' do
+
+    Fonemas.fonemas('concur-').should include('k o n k u r')
+    Fonemas.fonemas('-curso').should include('k uu r s o')
+
+  end
+
+  it 'debe caerse con guiones entre medio' do
+
+    expect { Fonemas.fonemas('a-b') }.to raise_error
+
+
+  end
 
 
 end
