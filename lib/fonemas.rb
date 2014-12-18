@@ -508,8 +508,13 @@ module Fonemas
         when 'l' then
           fonema << 'l'
         when 'll' then
+          if i == word.length - 1
+            fonema << 'l'
+          else
+            fonema << ['ll','l']
+          end
           #fonema << ['ll','lli','i']
-          fonema << ['ll','i']
+
         when 'm' then
           fonema << 'm'
         when 'n' then
@@ -569,12 +574,12 @@ module Fonemas
               fonema << 'u'
           end
         when 'w' then
-          if word[i-1] == 'l'
+          if word[i-1] == 'l' or i == 0
             fonema << [['g','u']]
-          elsif i == 0 and word[i+1] == 'e'
-            fonema << ['u']
-          elsif i == 0
-            fonema << ['b']
+          #elsif i == 0 and word[i+1] == 'e'
+          #  fonema << ['u']
+          #elsif i == 0
+          #  fonema << ['b']
           elsif word[i-1] == 'o'
             fonema << 'u'
           elsif word[i+1] == 'i'

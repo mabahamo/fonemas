@@ -135,9 +135,9 @@ describe Fonemas do
 
   it 'identificar sílaba tónica' do
     word = Fonemas.separar('acaban')
-    Fonemas.isTonica(word,0).should be_false
-    Fonemas.isTonica(word,2).should be_true
-    Fonemas.isTonica(word,4).should be_false
+    Fonemas.isTonica(word,0).should eql(false)
+    Fonemas.isTonica(word,2).should eql(true)
+    Fonemas.isTonica(word,4).should eql(false)
 
   end
 
@@ -172,9 +172,15 @@ describe Fonemas do
 
   end
 
-  it 'test web' do
-    Fonemas.fonemas('web').should include('u ee b')
+  it 'letra w' do
+    Fonemas.fonemas('web').should include('g u ee b')
+    Fonemas.fonemas('will').should include('g u i l')
+    Fonemas.fonemas('william').should include('g u i l i aa m')
+
+
   end
+
+
 
   it 'palabras esdrújulas' do
     silabas = Fonemas.silabar('llamémosla')
@@ -182,9 +188,9 @@ describe Fonemas do
     word = Fonemas.separar('llamémosla')
     word[0].should eql('ll')
     word[3].should eql('é')
-    Fonemas.isConsonante(word,3).should be_false
-    Fonemas._isTonica(word,3).should be_true
-    Fonemas.isTonica(word,3).should be_true
+    Fonemas.isConsonante(word,3).should eql(false)
+    Fonemas._isTonica(word,3).should eql(true)
+    Fonemas.isTonica(word,3).should eql(true)
   end
 
   it 'debe soportar palabras parciales' do
