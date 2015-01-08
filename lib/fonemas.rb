@@ -457,12 +457,18 @@ module Fonemas
           else
             fonema << 'd'
           end
-        when 'e','é','ë' then
-          if isTonica(word,i)
-            fonema << 'ee'
+        when 'e','ë' then
+          if word[i-1] == 'n' and word[i-2] == 'o' and word[i-3] == 'h' and word[i-4] == 'p'
+            fonema << ''
           else
-            fonema << 'e'
+            if isTonica(word,i)
+              fonema << 'ee'
+            else
+              fonema << 'e'
+            end
           end
+        when 'é' then
+          fonema << 'ee'
         when 'f' then
           fonema << 'f'
         when 'g' then
@@ -492,10 +498,14 @@ module Fonemas
           end
           #nada
         when 'i','í' then
-          if isTonica(word,i)
-            fonema << 'ii'
+          if word[i+1] == 'p' and word[i+2] == 'h'
+            fonema << [['aa','i']]
           else
-            fonema << 'i'
+            if isTonica(word,i)
+              fonema << 'ii'
+            else
+              fonema << 'i'
+            end
           end
         when 'j' then
           if i == 0 and word[i+1] == 'o' and (word[i+2] == 'ã' or word[i+2] == 'h')
@@ -521,14 +531,24 @@ module Fonemas
           fonema << 'n'
         when 'ñ'  then
           fonema << 'nh'
-        when 'o','ó' then
-          if isTonica(word,i)
-            fonema << 'oo'
-          else
+        when 'o' then
+          if word[i-1] == 'h' and word[i-2] == 'p'
             fonema << 'o'
+          else
+            if isTonica(word,i)
+              fonema << 'oo'
+            else
+              fonema << 'o'
+            end
           end
+        when 'ó' then
+          fonema << 'oo'
         when 'p' then
-          fonema << 'p'
+          if word[i+1] == 'h'
+            fonema << 'f'
+          else
+            fonema << 'p'
+          end
         when 'q' then
           fonema << 'k'
         when 'r' then

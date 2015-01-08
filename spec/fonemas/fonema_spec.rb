@@ -176,10 +176,11 @@ describe Fonemas do
     Fonemas.fonemas('web').should include('g u ee b')
     Fonemas.fonemas('will').should include('g u i l')
     Fonemas.fonemas('william').should include('g u i l i aa m')
-
-
   end
 
+  it 'palabras gringas' do
+    Fonemas.fonemas('iphone').should include('aa i f o n')
+  end
 
 
   it 'palabras esdrújulas' do
