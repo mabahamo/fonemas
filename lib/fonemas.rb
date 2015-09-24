@@ -377,6 +377,9 @@ module Fonemas
     return nil
   end
 
+  def self.limpiarVocalesDuplicadas(word)
+    word.gsub(/a+/,'a').gsub(/e+/,'e').gsub(/i+/,'i').gsub(/o+/,'o').gsub(/u+/,'u')
+  end
 
   def self.fonemas(word)
     if word.include? ' '
@@ -390,6 +393,9 @@ module Fonemas
     return self.nombres(word) unless self.nombres(word).nil?
     return self.extranjeras(word) unless self.extranjeras(word).nil?
     word = word.gsub(/'/,'')
+
+    word = limpiarVocalesDuplicadas(word)
+
     if word.size == 1
       return fonemaLetra(word)
     end

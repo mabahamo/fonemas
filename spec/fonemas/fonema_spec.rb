@@ -58,7 +58,7 @@ describe Fonemas do
 
 
   end
-  
+
   it 'soporta mayúsculas acentuadas' do
     Fonemas.fonemas('África').should include('aa f r i k a')
   end
@@ -204,10 +204,13 @@ describe Fonemas do
 
   end
 
+  it 'palabras con letras repetidas' do
+    Fonemas.fonemas('aaah').should eql(Fonemas.fonemas('aah'))
+  end
+
   it 'debe caerse con guiones entre medio' do
 
     expect { Fonemas.fonemas('a-b') }.to raise_error
-
 
   end
 
