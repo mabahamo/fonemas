@@ -157,8 +157,11 @@ describe Fonemas do
     Fonemas.fonemas('aylwin').should include("ee i l g u i n")
     Fonemas.fonemas('xavier').should_not include('ks a b i ee r')
     Fonemas.fonemas('xavier').should include('j a b i ee r')
+  end
 
-
+  it 'palabras extranjeras comunes en chile' do
+    Fonemas.fonemas('ok').should_not include('oo k')
+    Fonemas.fonemas('ok').should include('o k ee i')
   end
 
   it 'soporta abreviaciones' do

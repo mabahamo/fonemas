@@ -15,7 +15,7 @@ module Fonemas
     s = downcase(s)
     return s
   end
-  
+
   def self.downcase(text)
     UnicodeUtils.downcase(text)
   end
@@ -372,6 +372,11 @@ module Fonemas
     return nil
   end
 
+  def self.extranjeras(word)
+    return ['o k ee i'] if word == 'ok'
+    return nil
+  end
+
 
   def self.fonemas(word)
     if word.include? ' '
@@ -383,6 +388,7 @@ module Fonemas
     end
     return self.fonemas(abreviacion(word)) unless abreviacion(word).nil?
     return self.nombres(word) unless self.nombres(word).nil?
+    return self.extranjeras(word) unless self.extranjeras(word).nil?
     word = word.gsub(/'/,'')
     if word.size == 1
       return fonemaLetra(word)
@@ -563,7 +569,8 @@ module Fonemas
           if word[i-1] == 'd' or i == word.size-1
           #if word[i-1] == 'r' or word[i-1] == 'd' or i == word.size-1
             #fonema << ['s','','h']
-            fonema << ['s','']
+            #fonema << ['s','']
+            fonema << 's'
           elsif entreVocalyConsonante(word,i)
             #fonema << ['s','h']
             fonema << 's'
